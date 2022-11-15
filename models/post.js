@@ -11,9 +11,9 @@ const postSchema = new mongoose.Schema({
     created_by : {
         type: {
             type : ObjectId,
-            ref : 'User'
-        },
-        required : [true, 'created_by is required']
+            ref : 'User',
+            required : [true, 'created_by is required']
+        }
     },
     likes : {
         type : [{type : ObjectId, ref : 'User'}],
@@ -26,4 +26,4 @@ const postSchema = new mongoose.Schema({
 }, {timestamps:true})
 
 
-module.exports = mongoose.Model('Post', postSchema)
+module.exports = mongoose.model('Post', postSchema)
