@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
+const auth = require('../middleware/auth')
 
-router.post('/follow/:id', async (req, res) => {
+router.post('/follow/:id', auth, async (req, res) => {
     try{
         const {id} = req.params
         const user = req.user
@@ -24,15 +25,15 @@ router.post('/follow/:id', async (req, res) => {
     }
 })
 
-router.post('/unfollow/:id', async (req, res) => {
+router.post('/unfollow/:id', auth, async (req, res) => {
     try{
         const {id} = req.params
         const user = req.user
         const unfollowingUserObject = await User.findOne({_id : id})
         const unfollowerUserObject = await User.findOne({_id : user._id})    
         
-        unfollowingUserObject.followers = unfollowingUserObject.followers.filter((id) => id !== user._id)
-        unfollowingUserObject.following = unfollowingUserObject.following.filter((id) => id !== _id)
+        unfollowingUserObject.followers = unfollowingUserObject.followers.filter((id) => id.toString() !== user._id.toString())
+        unfollowingUserObject.following = unfollowingUserObject.following.filter((id) => id.toString() !== _id.toString())
 
         await unfollowingUserObject.save()
         await unfollowerUserObject.save()

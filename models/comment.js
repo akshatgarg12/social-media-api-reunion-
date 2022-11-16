@@ -6,19 +6,15 @@ const commentSchema = new mongoose.Schema({
         type: String,
     },
     created_by : {
-        type: {
-            type : ObjectId,
-            ref : 'User'
-        },
+        type : ObjectId,
+        ref : 'User',
         required : [true, 'created_by is required']
     },
     post_id : {
-        type : {
-            type : ObjectId,
-            ref : 'Post'
-        },
+        type : ObjectId,
+        ref : 'Post',
         required : [true, 'post_id is required']
-    }
+    },
 }, {timestamps:true})
 
 

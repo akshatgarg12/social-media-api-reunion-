@@ -1,14 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const Post = require('../models/post')
+const auth = require('../middleware/auth')
 
-router.post('/posts', async (req, res) => {
+
+router.post('/posts', auth, async (req, res) => {
     try{
         const {title, description} = req.body
-        const user = req.user
-        const newPost = await Post.insertOne({title, description, created_by : user._id})
-        const newPostId = newPost.insertedId
-        const post = await Post.findOne({_id : newPostId})
+        const created_by = req.user._id
+        console.log(created_by)
+        const newPost = Post({title, description,created_by})
+        console.log(newPost)
+        await newPost.save()
+        const post = await Post.findOne({_id : newPost._id})
         res.send(post)
     }catch(e){
         console.log(e.message)
@@ -17,7 +21,7 @@ router.post('/posts', async (req, res) => {
 })
 
 router.route('/posts/:id')
-      .delete(async (req, res) => {
+      .delete(auth, async (req, res) => {
             try{
                 const {id} = req.params
                 const user = req.user
@@ -40,7 +44,7 @@ router.route('/posts/:id')
             }
         })
 
-router.get('/all_posts', async (req, res) => {
+router.get('/all_posts',auth,async (req, res) => {
     try{
         const user = req.user
         const posts = await Post.find({created_by : user._id}).populate('likes comments')

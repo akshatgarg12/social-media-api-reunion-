@@ -1,8 +1,29 @@
 const express = require('express')
 const User = require('../models/user')
 const router = express.Router()
+const auth = require('../middleware/auth')
 
-router.get('/user', async (req, res) => {
+
+router.post('/user', async (req, res) => {
+    try{
+        const {name, email, password} = req.body
+        if(!name || !email || !password ){
+            return res.status(400).json({message : 'Please fill all feilds'})
+        }
+        const oldUser = await User.findOne({email})
+        if(oldUser){
+            return res.status(409).send("User Already Exist. Please Login");
+        }
+        const newUser = User({name, email, password})
+        await newUser.save()
+        res.send(newUser._id)
+    }catch(e){
+        console.log(e.message)
+        res.status(400).json({message : e.message})
+    }
+})
+
+router.get('/user', auth, async (req, res) => {
     try{
         const user = req.user
         const _id = user._id

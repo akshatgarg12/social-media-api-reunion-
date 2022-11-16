@@ -9,11 +9,9 @@ const postSchema = new mongoose.Schema({
         type: String,
     },
     created_by : {
-        type: {
-            type : ObjectId,
-            ref : 'User',
-            required : [true, 'created_by is required']
-        }
+        type : ObjectId,
+        ref : 'User',
+        required : [true, 'created_by is required']
     },
     likes : {
         type : [{type : ObjectId, ref : 'User'}],
