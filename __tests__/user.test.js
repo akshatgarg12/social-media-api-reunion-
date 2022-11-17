@@ -1,6 +1,3 @@
-//During the test the env variable is set to test
-process.env.NODE_ENV = 'test';
-
 const mongoose = require("mongoose");
 const User = require('../models/user');
 const {chai, server} = require('./index')
