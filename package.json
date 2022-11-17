@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start" : "node index.js",
     "test": "env NODE_ENV=test mocha --timeout 10000 __tests__"
   },
   "keywords": [],
