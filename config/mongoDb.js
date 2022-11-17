@@ -1,8 +1,11 @@
 const mongoose = require('mongoose')
 
+
 const DatabaseConnection = async () => {
   try {
-    const URI = process.env.MONGODB_URL || 'mongodb://localhost:27017/SocialMediaReunion'
+    const testEnv = process.env.NODE_ENV === 'test'
+    const mongodbTestUri = 'mongodb://localhost:27017/SocialMediaReunionTest'
+    const URI = testEnv ? mongodbTestUri : (process.env.MONGODB_URL || 'mongodb://localhost:27017/SocialMediaReunion')
     mongoose.connect(URI, {
       autoIndex: true,
       useNewUrlParser: true,

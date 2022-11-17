@@ -27,7 +27,7 @@ router.route('/posts/:id')
                 const {id} = req.params
                 const user = req.user
                 await Post.deleteOne({_id : id, created_by : user._id})
-                res.send(`deleted post with ${id} created by the user ${user._id}`)
+                res.json({message : `deleted post`, _id : id})
             }catch(e){
                 console.log(e.message)
                 res.status(404).json({message : e.message})

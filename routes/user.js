@@ -31,7 +31,7 @@ router.get('/user', auth, async (req, res) => {
         userInfo.followers = userInfo.followers.length
         userInfo.following = userInfo.following.length
         const {name, followers, following}  = userInfo
-        res.json({name, followers, following});
+        res.json({name, followers, following, _id });
     }catch(e){
         console.log(e.message)
         res.status(404).json({message : e.message})
