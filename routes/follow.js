@@ -18,7 +18,7 @@ router.post('/follow/:id', auth, async (req, res) => {
         await followingUserObject.save()
         await followerUserObject.save()
     
-        res.send({followerUserObject, followerUserObject})
+        res.send(`User ${user._id} now follows user ${id}`)
     }catch(e){
         console.log(e.message)
         res.status(404).json({message : e.message})
@@ -37,8 +37,8 @@ router.post('/unfollow/:id', auth, async (req, res) => {
 
         await unfollowingUserObject.save()
         await unfollowerUserObject.save()
-    
-        res.send({unfollowerUserObject, unfollowerUserObject})
+
+        res.send(`User ${user._id} now unfollows user ${id}`)
     }catch(e){
         console.log(e.message)
         res.status(404).json({message : e.message})

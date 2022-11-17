@@ -30,7 +30,8 @@ router.get('/user', auth, async (req, res) => {
         const userInfo = await User.findOne({_id}, {name : 1, followers : 1, following:1})
         userInfo.followers = userInfo.followers.length
         userInfo.following = userInfo.following.length
-        res.send(userInfo);
+        const {name, followers, following}  = userInfo
+        res.json({name, followers, following});
     }catch(e){
         console.log(e.message)
         res.status(404).json({message : e.message})
