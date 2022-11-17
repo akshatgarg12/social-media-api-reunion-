@@ -12,6 +12,11 @@ describe('User Routes', () => {
            done();           
         });        
      });
+     
+     after(async () => {
+        await User.deleteMany({})
+        console.log('clearing database')
+     })
 
     describe('Create - Authenitcate - Query', () => {
         let userId = null

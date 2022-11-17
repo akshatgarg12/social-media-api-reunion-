@@ -10,7 +10,7 @@ router.post('/like/:id',auth, async(req, res) => {
         const post = await Post.findOne({_id:id})
         post.likes.push(user._id)
         await post.save()
-        res.send(post)
+        res.json(post)
     }catch(e){
         console.log(e.message)
         res.status(404).json({message : e.message})
